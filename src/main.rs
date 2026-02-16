@@ -29,7 +29,7 @@ fn main() {
     let output_post_dir = "post";
 
     // Create default index.md if it does not exist
-    const DEFAULT_INDEX_MD: &str = "🚀 *[Go Post](post/index.html)*\n";
+    const DEFAULT_INDEX_MD: &str = "🚀 *[Go Post](post/post.html)*\n";
     if !Path::new("index.md").exists() {
         std::fs::write("index.md", DEFAULT_INDEX_MD).expect("Failed to create default index.md");
         println!("==> created default index.md");
@@ -46,18 +46,53 @@ fn main() {
         .expect("Failed to convert index.md to HTML");
 
     println!("==> create post index...");
-    create_index_md(source_post_dir, "index.md", output_post_dir);
+    create_index_md(source_post_dir, output_post_dir);
 
     println!("==> create post...");
     get_md_files(source_post_dir).iter().for_each(|file| {
+        // Skip listing files ({dirname}.md); already generated as {dirname}.html by create_index_md
+        if is_listing_file(Path::new(file), source_post_dir, output_post_dir) {
+            return;
+        }
         convert_md_to_html(file, output_post_dir)
             .expect("Failed to convert markdown file to HTML");
     });
 }
 
-fn create_index_md(cur_dir: &str, index_file_name: &str, output_post_dir: &str) {
+fn is_listing_file(file_path: &Path, source_post_dir: &str, output_post_dir: &str) -> bool {
+    let parent = match file_path.parent() {
+        Some(p) => p,
+        None => return false,
+    };
+    let relative = match parent.strip_prefix(source_post_dir) {
+        Ok(r) => r,
+        Err(_) => return false,
+    };
+    let output_path = Path::new(output_post_dir).join(relative);
+    let output_dir_name = match output_path.file_name().and_then(|n| n.to_str()) {
+        Some(n) => n,
+        None => return false,
+    };
+    let listing_name = format!("{}.md", output_dir_name);
+    file_path
+        .file_name()
+        .and_then(|n| n.to_str())
+        .map(|n| n == listing_name)
+        .unwrap_or(false)
+}
+
+fn create_index_md(cur_dir: &str, output_post_dir: &str) {
     let mut content = String::new();
     let cur_path = Path::new(cur_dir);
+
+    // Listing file name = output directory name (e.g. post.md in src-post, rust.md in src-post/rust)
+    let relative_path = cur_path.strip_prefix("src-post").unwrap_or(cur_path);
+    let output_path = Path::new(output_post_dir).join(relative_path);
+    let listing_file_name = output_path
+        .file_name()
+        .and_then(|n| n.to_str())
+        .map(|n| format!("{}.md", n))
+        .unwrap_or_else(|| "post.md".to_string());
 
     for entry in std::fs::read_dir(cur_dir).expect("can't read dir") {
         let path = entry.expect("can't read dir path").path();
@@ -69,9 +104,9 @@ fn create_index_md(cur_dir: &str, index_file_name: &str, output_post_dir: &str) 
                 .expect("can't not convert from file name to str");
             let dir_path = path.to_str().expect("can't not convert from path to str");
 
-            create_index_md(dir_path, index_file_name, output_post_dir);
+            create_index_md(dir_path, output_post_dir);
 
-            content.push_str(&format!("- [{}]({}/index.html)\n", dir_name, dir_name));
+            content.push_str(&format!("- [{}]({}/{}.html)\n", dir_name, dir_name, dir_name));
         } else if path
             .extension()
             .expect("File path has no extension")
@@ -83,7 +118,7 @@ fn create_index_md(cur_dir: &str, index_file_name: &str, output_post_dir: &str) 
                 .to_str()
                 .expect("can't not convert from file name to str");
 
-            if file_name == index_file_name {
+            if file_name == listing_file_name {
                 continue;
             }
 
@@ -95,23 +130,32 @@ fn create_index_md(cur_dir: &str, index_file_name: &str, output_post_dir: &str) 
         }
     }
 
-    // Write index.md to source directory (for reference)
-    let source_index_path = cur_path.join(index_file_name);
-    println!("{}", source_index_path.display());
-    std::fs::write(&source_index_path, &content)
-        .expect("Failed to write index.md file");
+    // Use existing listing file if present; otherwise write generated content
+    let source_listing_path = cur_path.join(&listing_file_name);
+    let content = if source_listing_path.exists() {
+        println!("{} (use existing)", source_listing_path.display());
+        std::fs::read_to_string(&source_listing_path).expect("Failed to read listing file")
+    } else {
+        println!("{}", source_listing_path.display());
+        std::fs::write(&source_listing_path, &content).expect("Failed to write listing file");
+        content
+    };
 
-    // Write index.html to output directory
+    // Write index HTML to output directory (filename = directory name, e.g. post/post.html)
     // Strip src-post prefix to get relative path
     let relative_path = cur_path.strip_prefix("src-post").unwrap_or(cur_path);
     let output_path = Path::new(output_post_dir).join(relative_path);
     std::fs::create_dir_all(&output_path)
         .expect("Failed to create output directory for index");
 
-    let output_index_html = output_path.join("index.html");
-    let html_content = generate_index_html(&content, &output_path);
+    let output_dir_name = output_path
+        .file_name()
+        .and_then(|n| n.to_str())
+        .unwrap_or("index");
+    let output_index_html = output_path.join(format!("{}.html", output_dir_name));
+    let html_content = generate_index_html(&content, &output_index_html);
     std::fs::write(&output_index_html, html_content)
-        .expect("Failed to write index.html file");
+        .expect("Failed to write index HTML file");
 }
 
 fn convert_md_to_html(
@@ -237,7 +281,7 @@ fn calculate_css_path(html_path: &Path) -> String {
     css_path
 }
 
-fn generate_index_html(markdown_content: &str, output_path: &Path) -> String {
+fn generate_index_html(markdown_content: &str, html_path: &Path) -> String {
     // Convert markdown list to HTML
     let body = markdown::to_html_with_options(
         markdown_content,
@@ -258,7 +302,11 @@ fn generate_index_html(markdown_content: &str, output_path: &Path) -> String {
     )
     .expect("Failed to convert markdown to HTML for index");
 
-    let css_path = calculate_css_path(output_path);
+    let css_path = calculate_css_path(html_path);
+    let page_title = html_path
+        .file_stem()
+        .and_then(|n| n.to_str())
+        .unwrap_or("index");
 
     format!(
         r#"<!DOCTYPE html>
@@ -272,11 +320,11 @@ fn generate_index_html(markdown_content: &str, output_path: &Path) -> String {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
   <script>hljs.highlightAll();</script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  <title>index</title>
+  <title>{page_title}</title>
 </HEAD>
 
 <BODY>
-<h1 id="post-title">index</h1>
+<h1 id="post-title">{page_title}</h1>
 
 {body}
 
