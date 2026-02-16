@@ -1,0 +1,32 @@
+# Rust
+/target/
+**/*.rs.bk
+*.pdb
+
+# Binary at project root (when using --out-dir .)
+/md-to-html
+/md-to-html.exe
+
+# Cargo.lock is typically committed for executables; uncomment to ignore:
+# Cargo.lock
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.sublime-*
+
+# Local / env
+.env
+.env.local
+*.log
+
+# etc
+*.md
+*.html
