@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+  <link rel="stylesheet" href="../../css/style.css">
+  <!-- code highlight -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/school-book.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <title>tag</title>
+</HEAD>
+
+<BODY>
+<h1 id="post-title">tag</h1>
+
+<h1>strong</h1>
+<pre><code class="language-html">strong tag는 Text에 &lt;strong&gt;강조&lt;/strong&gt; 를 해준다.
+</code></pre>
+<h1>h</h1>
+<p>head</p>
+<p>HTML 문단 제목을 만들 수 있다.</p>
+<pre><code class="language-html">&lt;h1&gt;This is heading 1&lt;/h1&gt;
+&lt;h2&gt;This is heading 2&lt;/h2&gt;
+&lt;h3&gt;This is heading 3&lt;/h3&gt;
+&lt;h4&gt;This is heading 4&lt;/h4&gt;
+&lt;h5&gt;This is heading 5&lt;/h5&gt;
+&lt;h6&gt;This is heading 6&lt;/h6&gt;
+</code></pre>
+<h1>br</h1>
+<p>break line</p>
+<p>줄 바꿈. <code>&lt;/br&gt;</code> 로 태그를 닫지 않아도 된다.</p>
+<pre><code class="language-html">First Line&lt;br&gt;&lt;br&gt;Second Line
+</code></pre>
+<h1>p</h1>
+<p>paragraph</p>
+<p>단락을 나누기 위해 줄바꿈(br)을 사용하는 것을 고려할 수 있다. 하지만 HTML에는 단락 표현을 위한 전용 태그(paragraph tag)가 별도로 존재한다.</p>
+<pre><code class="language-html">&lt;p&gt;
+    Hypertext Markup Language (HTML) is the standard markup language for...      
+&lt;/p&gt;
+</code></pre>
+<p>단락을 표현하기 위해 br 대신 p 를 사용해야 하는 이유</p>
+<ul>
+<li>단락에는 단락 태그를 사용하는 것이 웹페이지를 정보로서 보다 가치있게 해준다.
+<ul>
+<li>ex1) 다른 프로그램 역시 p 태그를 단락으로 인식하여 처리하기에 호환성 향상</li>
+<li>ex2) p 태그를 통해서 단락의 경계를 분명히 하면서 CSS를 통해서 p 태그의 디자인을 자유롭게 변경</li>
+</ul>
+</li>
+<li>br 태그는 단순히 줄 바꿈을 의미 할 뿐이다. br 태그는 쓰는만큼 줄바꿈이 되기 때문에 원하는 만큼 간격을 줄 수 있는 장점이 있지만 CSS라는 기술이 있다면 p태그의 한계를 극복 할 수 있다.</li>
+</ul>
+<h1>img</h1>
+<p>image</p>
+<p>이미지 삽입. src attribute 에 이미지 경로 설정.</p>
+<pre><code class="language-html">&lt;img src=&quot;https://s3-ap-northeast-2.amazonaws.com/opentutorials-user-file/module/3135/7648.png&quot;&gt;
+
+로컬 파일 경로도 사용 가능
+&lt;img src=&quot;C:\Users\daewo\Desktop\3391805_1496218621340.jpeg&quot;&gt;
+</code></pre>
+<h1>li</h1>
+<p>list</p>
+<p>목차.</p>
+<pre><code class="language-html">&lt;li&gt;1. HTML&lt;/li&gt;
+&lt;li&gt;2. CSS&lt;/li&gt;
+&lt;li&gt;3. JavaScript&lt;/li&gt;
+</code></pre>
+<h1>ul</h1>
+<p>unordered list</p>
+<p>목록끼리 경계 구분.</p>
+<pre><code class="language-html">&lt;ul&gt;
+  &lt;li&gt;1. HTML&lt;/li&gt;
+  &lt;li&gt;2. CSS&lt;/li&gt;
+  &lt;li&gt;3. JavaScript&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+  &lt;li&gt;egoing&lt;/li&gt;
+  &lt;li&gt;k8805&lt;/li&gt;
+  &lt;li&gt;sorialgi&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<h1>ol</h1>
+<p>ordered list</p>
+<p>목록끼리 경계 구분. 자동으로 번호를 붙여 순서를 매김.</p>
+<pre><code class="language-html">&lt;ol&gt;
+  &lt;li&gt;HTML&lt;/li&gt;
+  &lt;li&gt;CSS&lt;/li&gt;
+  &lt;li&gt;JavaScript&lt;/li&gt;
+&lt;/ol&gt;
+</code></pre>
+<h1>table</h1>
+<p>테이블</p>
+<p><strong>기본 사용</strong></p>
+<ul>
+<li>tr : table row</li>
+<li>td : table data</li>
+</ul>
+<pre><code class="language-html">&lt;table&gt;
+  &lt;tr&gt;
+    &lt;td&gt;이름&lt;/td&gt;     &lt;td&gt;성별&lt;/td&gt;   &lt;td&gt;주소&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;최진혁&lt;/td&gt;  &lt;td&gt;남&lt;/td&gt;      &lt;td &gt;청주&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;최유빈&lt;/td&gt;  &lt;td&gt;여&lt;/td&gt;      &lt;td&gt;청주&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+<table>
+  <tr>
+    <td>이름</td>     <td>성별</td>   <td>주소</td>
+  </tr>
+  <tr>
+    <td>최진혁</td>  <td>남</td>      <td >청주</td>
+  </tr>
+  <tr>
+    <td>최유빈</td>  <td>여</td>      <td>청주</td>
+  </tr>
+</table>
+<p><strong>테이블 구조화</strong></p>
+<ul>
+<li>thead(table head) : 컬럼 제목들이다. 해당 row를 가장 위에 둔다.</li>
+<li>tbody(table b~ody) : 해당 row를 중간에 둔다.</li>
+<li>tfoot(table foot) : 해당 row를 가장 아래로 둔다.</li>
+<li>th(table head) : 제목으로서 표현할 때 사용</li>
+</ul>
+<pre><code class="language-html">&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;이름&lt;/th&gt;     &lt;th&gt;성별&lt;/th&gt;   &lt;th&gt;주소&lt;/th&gt; &lt;th&gt;회비&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+  &lt;tr&gt;
+    &lt;td&gt;최진혁&lt;/td&gt;  &lt;td&gt;남&lt;/td&gt;      &lt;td &gt;청주&lt;/td&gt; &lt;td&gt;1000&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;최유빈&lt;/td&gt;  &lt;td&gt;여&lt;/td&gt;      &lt;td&gt;청주&lt;/td&gt; &lt;td&gt;500&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tfoot&gt;
+    &lt;tr&gt;
+      &lt;td&gt;합계&lt;/td&gt;  &lt;td&gt;&lt;/td&gt;      &lt;td&gt;&lt;/td&gt; &lt;td&gt;1500&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tfoot&gt;
+&lt;/table&gt;
+</code></pre>
+<table>
+  <thead>
+    <tr>
+      <th>이름</th>     <th>성별</th>   <th>주소</th> <th>회비</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>최진혁</td>  <td>남</td>      <td >청주</td> <td>1000</td>
+  </tr>
+  <tr>
+    <td>최유빈</td>  <td>여</td>      <td>청주</td> <td>500</td>
+  </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td>합계</td>  <td></td>      <td></td> <td>1500</td>
+    </tr>
+  </tfoot>
+</table>
+<p><strong>병합</strong></p>
+<ul>
+<li>colspan, rowspan</li>
+</ul>
+<pre><code class="language-html">&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;이름&lt;/th&gt;     &lt;th&gt;성별&lt;/th&gt;   &lt;th&gt;주소&lt;/th&gt; &lt;th&gt;회비&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;최진혁&lt;/td&gt;  &lt;td&gt;남&lt;/td&gt;      &lt;td rowspan=&quot;2&quot;&gt;청주&lt;/td&gt; &lt;td&gt;1000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;최유빈&lt;/td&gt;  &lt;td&gt;여&lt;/td&gt;      &lt;td&gt;500&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tfoot&gt;
+    &lt;tr&gt;
+      &lt;td colspan=&quot;3&quot;&gt;합계&lt;/td&gt;      &lt;td&gt;1500&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tfoot&gt;
+&lt;/table&gt;
+</code></pre>
+<table>
+  <thead>
+    <tr>
+      <th>이름</th>     <th>성별</th>   <th>주소</th> <th>회비</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>최진혁</td>  <td>남</td>      <td rowspan="2">청주</td> <td>1000</td>
+    </tr>
+    <tr>
+      <td>최유빈</td>  <td>여</td>      <td>500</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="3">합계</td>      <td>1500</td>
+    </tr>
+  </tfoot>
+</table>
+<h1>title</h1>
+<p>웹 페이지 타이틀 설정. 타이틀 태그를 이용해 웹페이지 제목을 지정하면 더 이상 웹브라우저의 탭에 파일 이름이 안 뜨고 title이 뜨게 된다.</p>
+<blockquote>
+<p>검색엔진이 웹페이지를 분석할 때 가장 중요하게 생각하는 태그이기 때문에 title 태그를 쓰지 않으면 정말 큰 손해이다</p>
+</blockquote>
+<pre><code class="language-html">&lt;title&gt;WEB1 - html&lt;/title&gt;
+</code></pre>
+<h1>body</h1>
+<p>웹페이지에서 본문 지정.</p>
+<pre><code class="language-html">&lt;head&gt;
+  &lt;title&gt;WEB1 - html&lt;/title&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;HTML&lt;/h1&gt;
+  &lt;p&gt;
+    Hypertext Markup Language (HTML) is the standard 
+  &lt;/p&gt;
+  &lt;p style=&quot;margin-top:45px;&quot;&gt;
+    HTML elements are the building blocks of HTML pages. With HTML constructs, images and 
+  &lt;/p&gt;
+&lt;/body&gt;
+</code></pre>
+<h1>html, DOCTYPE</h1>
+<p>html : body 태그와 head 태그를 감싸는 tag.</p>
+<p>doctype : HTML 코드를 작성할 때 항상 <code>&lt;!DOCTYPE html&gt;</code> 을 먼저 적고 시작한다. 웹브라우저가 이 HTML 문서가 어떤 표준을 따르고 있는 tag 들인지 알려 준다.</p>
+<ul>
+<li>HTML5가 들어오면서 <code>&lt;!DOCTYPE html&gt;</code>로 통일 되었기에 그냥 넣어주면 된다.</li>
+</ul>
+<blockquote>
+<p>html 과 DOCTYPE 은 HTML 문서를 작성 한다면 관용적으로 추가해야 한다</p>
+</blockquote>
+<pre><code class="language-html">&lt;!doctype html&gt;    이 웹페이지가 HTML로 만들어졌다는 것을 표시.
+&lt;html&gt;
+&lt;head&gt;
+    ...
+&lt;/head&gt;
+&lt;body&gt;
+    ...
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h1>a</h1>
+<p>anchor</p>
+<p>링크 설정. href(HyperText Reference) attribute 에 링크 주소 설정.</p>
+<pre><code class="language-html">&lt;a href=&quot;https://www.w3.org/TR/html5/&quot; target=&quot;_blank&quot;&gt;go to HTML5&lt;/a&gt;
+</code></pre>
+<h1>meta</h1>
+<p>메타 정보. 웹페이저 전체를 설명하는 정보. 이런 정보들은 글의 본문에 포함되지는 않지만 웹 페이지를 검색, 분류하기 윈한 중요한 정보이다</p>
+<p>ex) 웹페이지를 검색 키워드, 웹페이지 제목, 웹 페이지 저자, 웹 페이지 내용...</p>
+<pre><code class="language-html">웹 브라우저가 웹을 특정 인코딩으로 읽어 들이게끔 알려주기 위해서 meta 태그의 charset이라는 attribute를 이용해서 지정
+&lt;meta charset=&quot;utf-8&quot;&gt;
+
+검색 엔진에서 name을 보고 검색 할 확률이 높다.
+&lt;meta name=&quot;description&quot; content=&quot;생활코딩의 소개 자료&quot; &gt;
+&lt;meta name=&quot;keywords&quot; content=&quot;HTML, CSS, Coding, programming&quot; &gt;
+&lt;meta name=&quot;author&quot; content=&quot;egoing&quot; &gt;
+
+30초 간격으로 리프레시.
+&lt;meta http-equiv=&quot;refresh&quot; content=&quot;30&quot;&gt;
+</code></pre>
+<h1>스타일을 위한 태그 div, span</h1>
+<p>div, span 태그는 다른 태그들과 달리 정보로서 의미를 가지지 않는다. 단지 스타일을 적용하기 위한 용도로 사용된다.</p>
+<p>div</p>
+<ul>
+<li>무색무취와 같은 태그, 어떤 의미도 없음.</li>
+<li>block level tag.</li>
+</ul>
+<pre><code class="language-html">&lt;body&gt;
+  &lt;div&gt;NAVIGATION&lt;/div&gt;
+  &lt;div&gt;ARTICLE&lt;/div&gt;
+&lt;/body&gt;
+</code></pre>
+<p>span</p>
+<ul>
+<li>
+<p>div 와 비슷하며 기본적으로 inline tag.</p>
+</li>
+</ul>
+<p>ex) div, span 태그를 이용하여 여러 태그를 그룹핑하여 스타일 적용</p>
+<pre><code class="language-html">&lt;style&gt;
+    div{
+        border:5px solid gray;
+    }
+&lt;/style&gt;
+&lt;body&gt;
+    &lt;div&gt;                  &lt;-- div라는 의미없는 태그로 2개의 태그를 묶음.
+        &lt;div&gt;NAVIGATION&lt;/div&gt;  
+        &lt;div&gt;ARTICLE&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+</code></pre>
+<h1>link</h1>
+<p>파일에서 코드를 다운로드 받아 붙여넣음.</p>
+<pre><code class="language-html">style.css 파일에 있는 코드를 다운로드 받고 붙여 넣기
+
+&lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt;
+</code></pre>
+<h1>TIP</h1>
+<p>태그 끼리는 부모 자식 관계를 가지며 필요에 따라서는 자식, 부모 태그 관계과 역전될 수 있다.</p>
+<pre><code class="language-html">&lt;parent&gt;
+  &lt;child&gt;&lt;/child&gt;
+&lt;/parent&gt;
+&lt;p&gt;
+  &lt;a href=&quot;https://www.w3.org/TR/html5/&quot; target=&quot;_blank&quot;&gt;go to HTML5&lt;/a&gt;
+&lt;/p&gt;
+</code></pre>
+<p>클로즈가 없는 태그</p>
+<ul>
+<li>img, input, br, hr, meta</li>
+<li>HTML의 여러 태그 중에 무엇인가를 설명하지 않는 태그들은 감싸야하는 컨텐츠가 없기 때문에 태그를 닫지 않는다는 규칙이 있다.</li>
+</ul>
+<p>web page에서 tag 사용 빈도수를 확인 할 수 있는 사이트</p>
+<ul>
+<li>https://www.advancedwebranking.com/html/</li>
+</ul>
+<p>HTML5 부터 추가된 semantic</p>
+<pre><code>article	: 본문
+aside	: 광고와 같이 페이지의 내용과는 관계가 적은 내용들
+details	: 기본적으로 표시되지 화면에 표시되지 않는 정보들을 정의
+figure	: 삽화나 다이어그램과 같은 부가적인 요소를 정의
+footer	: 화면의 하단에 위치하는 사이트나 문서의 전체적인 정보를 정의
+header	: 화면의 상단에 위치하는 사이트나 문서의 전체적인 정보를 정의
+main	: 문서에서 가장 중심이 되는 컨텐츠를 정의
+mark	: 참조나 하이라이트 표시를 필요로 하는 문자를 정의
+nav     : 문서의 네비게이션 항목을 정의
+section	: 문서의 구획들을 정의 (참고)
+</code></pre>
+<p><strong>검색 엔진 최적화</strong></p>
+<p>사용자가 검색 했을때 상위에 노출할 수 있도록 하기 위해서는 HTML 코드를 의미론적으로 잘 구현해야 한다.</p>
+<ul>
+<li><strong>HTML 개발 시 UI 모습은 신경쓰지 말고 의미론적(semantic)으로 잘 구조화 될 수 있도록 개발해야 한다.</strong> UI 모습은 CSS 로 처리해야 한다.</li>
+</ul>
+<p>ex)</p>
+<ul>
+<li>title 태그를 이용하여 페이지의 제목 나타내기</li>
+<li>description 메타 태그 사용하기</li>
+<li>URL 주소를 알아보기 쉽도록 바꾸기,</li>
+</ul>
+<pre><code>www.wwf.com/abxd23as &lt;- 안좋은 예
+www.wwf.com/animal &lt;- 좋은 예
+</code></pre>
+
+</BODY>
+
+</HTML>

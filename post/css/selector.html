@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+  <link rel="stylesheet" href="../../css/style.css">
+  <!-- code highlight -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/school-book.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <title>selector</title>
+</HEAD>
+
+<BODY>
+<h1 id="post-title">selector</h1>
+
+<h1>선택자(selector)</h1>
+<p>선택자는 CSS에서 스타일을 적용할 HTML 요소를 선택하는 방법이다.</p>
+<pre><code class="language-html">&lt;head&gt;
+  &lt;style&gt;
+    li {                   &lt;-- 누구에게 효과를 줄지 선택하는 선택자(selector)
+      color:red;
+      text-decoration:underline;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;ul&gt;
+    &lt;li&gt;HTML&lt;/li&gt;
+    &lt;li&gt;CSS&lt;/li&gt;
+    &lt;li&gt;JavaScript&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/body&gt;
+</code></pre>
+<h1>태그 선택자</h1>
+<p>태그를 선택하여 스타일을 적용.</p>
+<pre><code class="language-html">&lt;style&gt;
+  li{color:red;}     &lt;--  li 태그 선택.
+&lt;/style&gt;
+</code></pre>
+<h1>아이디 선택자</h1>
+<p>아이디 선택자는 ID 속성을 사용하여 특정 태그에만 스타일을 적용.</p>
+<pre><code class="language-html">&lt;head&gt;
+&lt;style&gt;
+  li{color:red;}
+  #select{            &lt;-- # 으로 시작. ID가 select인 태그에 효과 적용.
+    font-size:50px;
+  }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;ul&gt;
+    &lt;li&gt;HTML&lt;/li&gt;
+    &lt;li id=&quot;select&quot;&gt;CSS&lt;/li&gt;   &lt;-- ID를 select로 지정 하였다.
+    &lt;li&gt;JavaScript&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/body&gt;
+</code></pre>
+<p>주의 사항</p>
+<ul>
+<li>다음과 같이 여러 태그를 선택하여도 정상 동작 하지만 지양해야 한다.</li>
+<li>ID는 고유성이라는 성질을 가지며 ID 선택자의 원래 목적은 하나만 지정 하는 것이다.</li>
+<li>여러 태그를 선택하려면 클래스 선택자를 사용 해야 한다.</li>
+</ul>
+<pre><code class="language-html">&lt;li id=&quot;deactive&quot;&gt;HTML&lt;/li&gt;
+&lt;li id=&quot;deactive&quot;&gt;JavaScript&lt;/li&gt;
+</code></pre>
+<h1>클래스 선택자</h1>
+<p>class 속성을 사용하여 특정 태그들에 스타일을 적용.</p>
+<pre><code class="language-html">&lt;head&gt;
+&lt;style&gt;
+  .deactive{             &lt;-- . 으로 시작. 클래스가 deactive인 태그에 효과 적용.
+    text-decoration: line-through;
+  }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;ul&gt;
+    &lt;li class=&quot;deactive&quot;&gt;HTML&lt;/li&gt;
+    &lt;li class=&quot;deactive&quot;&gt;JavaScript&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/body&gt;
+</code></pre>
+<p>클래스 선택자는 태그 선택자와 조합하여 사용 가능 하다.</p>
+<ul>
+<li><code>li.deactive</code></li>
+</ul>
+<h1>링크 관련 선택자</h1>
+<ul>
+<li><code>:link</code> : 방문한 적이 없는 링크 태그</li>
+<li><code>:visited1</code> : 방문한 적이 있는 링크 태그</li>
+<li><code>:hover</code> : 마우스 롤오버된 태그</li>
+<li><code>:active</code> : 마우스 클릭된 태그</li>
+<li>hover 와 active 가 같이 선언 되었을 경우 맨 마지막 선언이 적용</li>
+</ul>
+<pre><code class="language-html">&lt;head&gt;
+  &lt;style&gt;
+    a.hover{
+      color:yellow;
+    }
+    a.active{
+      coror:green;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;ul&gt;
+    &lt;a href=&quot;&quot;&gt;&lt;/a&gt;
+    &lt;a href=&quot;&quot;&gt;&lt;/a&gt;
+  &lt;/ul&gt;
+&lt;/body&gt;
+</code></pre>
+<h1>선택자 조합</h1>
+<p>부모와 자손 관계</p>
+<pre><code class="language-html">ul li{
+    color:red;
+}
+</code></pre>
+<ul>
+<li>웹페이지에 있는 모든 ul 밑에 있는 li 태그에 적용</li>
+<li>하위 태그를 지정하는 법은 띄어쓰기이다.</li>
+</ul>
+<p>부모와 자식 관계</p>
+<pre><code class="language-html">#lecture&gt;li{
+    border:1px solid red;
+}
+</code></pre>
+<ul>
+<li><code>#lecture</code> 바로 밑에 있는 li 에만 적용 한다.</li>
+<li>주의! 모든 속성이 위와 같이 적용 되는것은 아니다. color 라는 속성은 하위 요소들 모두에 영향을 주기에 의미가 없다.</li>
+</ul>
+<p>형제 관계(<code>,</code> 를 이용하여 복수 선택)</p>
+<pre><code class="language-css">ul,ol{
+    background-color: powderblue;
+}
+</code></pre>
+<ul>
+<li>
+<p>ul 와 ol 태그를 둘다 선택 한다.</p>
+</li>
+</ul>
+<pre><code class="language-html">&lt;head&gt;
+    &lt;style&gt;
+        ul li{
+            color:red;
+        }
+        #lecture&gt;li{
+            border:1px solid green;
+            color:green;
+        }
+        ul,ol{
+            background-color: powderblue;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;ul&gt;                            //ul,ol 적용 O
+    &lt;li&gt;HTML&lt;/li&gt;               //ul li 적용 O
+    &lt;li&gt;CSS                     //ul li 적용 O
+        &lt;ol&gt;
+            &lt;li&gt;selector&lt;/li&gt;       //ul li 적용 O
+            &lt;li&gt;declaration&lt;/li&gt;    //ul li 적용 O
+        &lt;/ol&gt;
+    &lt;/li&gt;
+    &lt;li&gt;JavaScript&lt;/li&gt;         //ul li 적용
+&lt;/ul&gt;
+&lt;ol id=&quot;lecture&quot;&gt;               //ul,ol 적용 O
+    &lt;li&gt;HTML&lt;/li&gt;               //#lecture&gt;li 적용 O
+    &lt;li&gt;CSS                     //#lecture&gt;li 적용 O
+        &lt;ol&gt;
+            &lt;li&gt;selector&lt;/li&gt;       //#lecture&gt;li 적용 X
+            &lt;li&gt;declaration&lt;/li&gt;    //#lecture&gt;li 적용 X
+        &lt;/ol&gt;
+    &lt;/li&gt;
+    &lt;li&gt;JavaScript&lt;/li&gt;         //#lecture&gt;li 적용 O
+&lt;/ol&gt;
+&lt;/body&gt;
+</code></pre>
+<ul>
+<li><img src="selector-img-1.png" alt="img.png" /></li>
+</ul>
+<h1>선택자 적용 우선 순위</h1>
+<p>적용 범위가 작은 순서로 우선 적용된다.</p>
+<p><strong>ID 선택자 &gt; 클래스 선택자 &gt; 태그 선택자</strong></p>
+<h1>CSS 특징과 선택자 사용시 주의 사항</h1>
+<p>클래스 선택자는 띄어쓰기로 구분하여 여러 클래스를 지정할 수 있다. 그러나 좋은 방법은 아니다.</p>
+<pre><code class="language-html">.saw { 
+  color:gray; 
+}
+.active { 
+  color:red;   
+}                &lt;-- saw, active 가 동시에 선언 되었다.
+
+&lt;li&gt;&lt;a href=&quot;2.html&quot; class=&quot;saw active&quot;&gt;CSS&lt;/a&gt;&lt;/li&gt;
+
+색깔이 중복해서 겹쳐진다. 무슨 색이 될까???... active(red)가 덮어쓴다.
+</code></pre>
+<p>CSS 언어는 다른 순차적인 언어와 달리 선억적인 언어다. 즉, 순서를 배열하여 의도를 표현하지 않고 선언을 통해 의도를 표현한다.</p>
+<p>따라서 CSS 를 사용하면서 순서에 의존하는 코드 작성을 지양해야 한다.</p>
+
+</BODY>
+
+</HTML>

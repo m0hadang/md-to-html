@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+  <link rel="stylesheet" href="../../css/style.css">
+  <!-- code highlight -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/school-book.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <title>kafka</title>
+</HEAD>
+
+<BODY>
+<h1 id="post-title">kafka</h1>
+
+<pre><code class="language-yaml">version: '3'
+services:
+  # config service
+  zookeeper: # service name
+    # container image
+    image: wurstmeister/zookeeper
+    # container name
+    container_name: zookeeper
+    # config access port (container external:internal)
+    ports:
+      - &quot;2181:2181&quot;
+  kafka:    
+    image: wurstmeister/kafka 
+    container_name: kafka
+    ports:
+      - &quot;9092:9092&quot;
+    # config environment
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_CREATE_TOPICS: &quot;my-topic:3:1&quot; # topic:partition:replication
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    # config volume
+    volumes:
+      - /var/run/docker.sock
+    # config dependency
+    depends_on:
+      - zookeeper
+</code></pre>
+
+</BODY>
+
+</HTML>

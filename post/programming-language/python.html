@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+  <link rel="stylesheet" href="../../css/style.css">
+  <!-- code highlight -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/school-book.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <title>python</title>
+</HEAD>
+
+<BODY>
+<h1 id="post-title">python</h1>
+
+<h1>producer</h1>
+<pre><code class="language-python">from kafka import KafkaProducer
+# from json import dumps
+import time
+
+producer = KafkaProducer(
+    bootstrap_servers=['localhost:9092'],
+    key_serializer=lambda x: x.encode('utf-8'),
+    value_serializer=lambda x: x.encode('utf-8'),
+    # value_serializer=lambda x: dumps(x).encode('utf-8'), # json serialize
+)
+
+start = time.time()
+
+for i in range(30):
+
+    data = 'result' + str(i)
+    # data = {'str': 'result' + str(i)} # json data
+
+    partition_key = 'even' if i % 2 == 0 else 'odd'
+    if i % 10 == 0:
+        partition_key = '10x'
+
+    producer.send('my-topic', key=partition_key, value=data)
+    producer.flush()
+
+print('[Done]:', time.time() - start)
+</code></pre>
+
+</BODY>
+
+</HTML>

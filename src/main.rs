@@ -25,6 +25,9 @@ fn main() {
     println!("==> create post index...");
     convert::create_index_md(source_post_dir, output_post_dir);
 
+    println!("==> copy assets...");
+    path_utils::copy_assets(source_post_dir, output_post_dir);
+
     println!("==> create post...");
     for file in path_utils::get_md_files(source_post_dir) {
         if path_utils::is_listing_file(Path::new(&file), source_post_dir, output_post_dir) {

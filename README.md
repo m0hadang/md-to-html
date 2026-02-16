@@ -17,6 +17,14 @@ A small Rust CLI that converts Markdown to HTML for a static site or blog. It pr
 
 To build the release binary into the **project root** (e.g. `md-to-html.exe` next to `Cargo.toml`), run the script (works on stable Cargo; `--out-dir` is nightly-only):
 
+clear output post directory(post) and indexing md file in src-post
+
+```ps1
+.\clear.cmd
+```
+
+build
+
 ```ps1
 .\build-release.cmd
 ```

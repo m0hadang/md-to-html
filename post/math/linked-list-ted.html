@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+  <link rel="stylesheet" href="../../css/style.css">
+  <!-- code highlight -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/school-book.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <title>linked-list-ted</title>
+</HEAD>
+
+<BODY>
+<h1 id="post-title">linked-list-ted</h1>
+
+<p>normal version</p>
+<pre><code class="language-cpp">void remove_list_entry(const Node *entry) {
+    Node *prev = nullptr;
+    Node *walk = g_head;
+
+    while (walk != entry) {
+        prev = walk;
+        walk = walk-&gt;next;
+    }
+
+    if (prev == nullptr)
+        g_head = entry-&gt;next;
+    else
+        prev-&gt;next = entry-&gt;next;
+}
+</code></pre>
+<p>better version</p>
+<pre><code class="language-cpp">void remove_list_entry_better(const Node *entry) {
+
+    // indirect changes
+    // head -&gt; next -&gt; next ...
+
+    Node **indirect = &amp;g_head;
+
+    while ((*indirect) != entry) {
+        indirect = &amp;(*indirect)-&gt;next;
+    }
+    *indirect = entry-&gt;next;
+}
+</code></pre>
+<ul>
+<li>ted: https://youtu.be/o8NPllzkFhE?t=867</li>
+</ul>
+
+</BODY>
+
+</HTML>

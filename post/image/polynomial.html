@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+  <link rel="stylesheet" href="../../css/style.css">
+  <!-- code highlight -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/school-book.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <title>polynomial</title>
+</HEAD>
+
+<BODY>
+<h1 id="post-title">polynomial</h1>
+
+<h1>다항식</h1>
+<p>정의 : 각 항이 ax^e 형태로 이루어진 항들이다.</p>
+<ul>
+<li>a : 계수</li>
+<li>x : 변수</li>
+<li>e : 지수</li>
+</ul>
+<p>A(x) = 3x^20 + 2x + 1</p>
+<ul>
+<li>차수(degree) : 가장 큰 지수
+<ul>
+<li>위 항은 20차 다항식이다.</li>
+</ul>
+</li>
+<li>지수가 0인 항은 1이다.</li>
+</ul>
+<p>다항식 연산
+A(x) = 3x^2 + 2x + 1
+B(x) = 2x^2 + 3x + 1</p>
+<p>덧셈 : A(x) + B(x)</p>
+<ul>
+<li>
+<p><img src="polynomial_sum.png" alt="polynomial_sum.png" /></p>
+</li>
+<li>
+<p>(3 + 2)x^2 + (2 + 3)x + (1 + 1)</p>
+</li>
+<li>
+<p>5x^2 + 5x + 2</p>
+</li>
+</ul>
+<p>곱셈 : A(x) * B(x)</p>
+<ul>
+<li><img src="polynomial_mux.png" alt="polynomial_mux.png" /></li>
+<li>(3x^2 + 2x + 1)(2x^2 + 3x + 1)</li>
+<li>(3x^2 + 2x + 1)(2x^2) + (3x^2 + 2x + 1)(3x) + (3x^2 + 2x + 1)(1)</li>
+<li>6x^4 + 13x^3 + 11x^2 + 5x + 1</li>
+</ul>
+
+</BODY>
+
+</HTML>

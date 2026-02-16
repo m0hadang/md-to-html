@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+  <link rel="stylesheet" href="../../css/style.css">
+  <!-- code highlight -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/school-book.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <title>matrix</title>
+</HEAD>
+
+<BODY>
+<h1 id="post-title">matrix</h1>
+
+<h1>행렬</h1>
+<h3>전치</h3>
+<ul>
+<li>행과 열을 바꾼다. 행렬 원소 a[i][j] 를 가져와 a[j][i] 로 저장하면 전치 행렬을 만들 수 있다.</li>
+</ul>
+<h3>행렬의 곱</h3>
+<p>정의</p>
+<ul>
+<li>행렬 A : m x n 차원</li>
+<li>행렬 B : n x p 차원</li>
+<li>행렬 D : A X B = m x p 차원</li>
+<li>0 &lt;= i &lt; m, 0 &lt;= j &lt; p 일때 각 원소
+<ul>
+<li><img src="matrix_element.png" alt="matrix_element.png" /></li>
+<li>\\(d_{ij} = \sum_{k=0}^{n-1}a_{ik}b_{kj}\\)</li>
+</ul>
+</li>
+</ul>
+<p>This sentence uses <code>\(</code> delimiters to show math inline:  \)\sqrt{3x-1}+(1+x)^2\(</p>
+<p>When \\(a \ne 0\\\), there are two solutions to \\(ax^2 + bx + c = 0\\) and they are
+\[x = {-b \pm \sqrt{b^2-4ac} \over 2a}.\]</p>
+<p>도식</p>
+<ul>
+<li><img src="matrix_mux.png" alt="matrix_mux.png" /></li>
+</ul>
+<p>코드</p>
+<pre><code>int rowA = m;
+int colB = p;
+for (int i = 0; i &lt; rowA; i++) {
+  for (int j = 0; j &lt; colB; j++) {  
+    int sum = 0;
+    for (int k = 0; k &lt; n; k++) {
+      sum += (a[i][k] * b[k][j]);
+    }      
+    d[i][j] = sum;
+  }
+}  
+</code></pre>
+
+</BODY>
+
+</HTML>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+  <link rel="stylesheet" href="../../css/style.css">
+  <!-- code highlight -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/school-book.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <title>about-html</title>
+</HEAD>
+
+<BODY>
+<h1 id="post-title">about-html</h1>
+
+<h1>웹의 역사</h1>
+<ul>
+<li>1960년, 인터넷 탄생</li>
+<li>1990년, 스위스에서 웹 탄생, 내가 태어난 년도부터 시작.</li>
+<li>유럽입자물리 연구소(CERN)에서 12000이 넘는 과학자들이 정보의 바다에서 허우적 거릴때 팀버너스리가 웹을 개발하여 쉽게 정보를 공유 할 수 있도록 만듬.
+<ul>
+<li>팀버너스리(WWW 개발, HTML 개발) : Web은 누구나 접근 할 수 있는 공공재이다.</li>
+</ul>
+</li>
+<li>1990년 11월 세계 최초의 웹브라우저 WWW 개발</li>
+<li>1990년 12 월 24일 (크리스마스이브)에 웹서버 완성
+<ul>
+<li>info.cern.ch</li>
+</ul>
+</li>
+</ul>
+<h1>인터넷과 웹의 관계</h1>
+<p>웹은 하나의 Protocol이다.</p>
+<pre><code class="language-html">Internet {
+  FTP, Web, Email
+}
+</code></pre>
+<h1>About HTML</h1>
+<p>인터넷을 사용하면서 여러 웹 페이지를 확인할 수 있다.(ex: 게시판, 블로그, 메일...)</p>
+<p>만약 웹 페이지에 제목 크기를 변경하고 싶다면 어떻게 해야 할까? 웹 페이지의 HTML 소스코드에서 size 값을 직접 변경하면 된다.</p>
+<pre><code class="language-html">size 조절
+
+&lt;strong&gt;&lt;span style=&quot;font-size:22px;&quot;&gt;coding&lt;/span&gt;&lt;/strong&gt;
+</code></pre>
+<p>HTML은 코드를 변경하는 순간 웹 페이지의 VIEW 가 변경된다.</p>
+<p>하지만 이런 작업을 해야하는 페이지가 100 페이지가 넘는다면 다소 번거로울 것이다. 페이지의 제목이 coding 이 아닌 페이지도 있어</p>
+<p>어떤 태그가 제목인지 판별하기 어렵다.</p>
+<p>이 문제를 해결하기 위해 제목의 포맷을 정하는 방법이 있다</p>
+<pre><code class="language-html">글자 포맷 변경
+
+&lt;h3&gt;coding&lt;/h3&gt;
+</code></pre>
+<p>여러 페이지의 제목이 달라도 h3 태그만 찾으면 제목을 쉽게 찾을 수 있다</p>
+<p><strong>HTML은 웹 페이지에 문서에 대한 메타 정보를 기록 하여 구조화 한 것이다</strong></p>
+<p>문서의 구조화가 중요한 이유</p>
+<ul>
+<li>ex1) NAVER 사이트 검색 엔진이 키워드를 통해 웹 페이지를 찾을 때 글자 스타일이 coding인 것을 먼저 찾을까 제목이 coding인 것을 먼저 찾을까? 누구든 자신이 만든 글을 NAVER 사이트 첫 화면에 출력하고 싶어한다.</li>
+<li>ex2) 시각장애인이 웹 페이지를 볼 수 있도록 스크린리더를 만들어야 된다고 했을 때 웹 페이지를 예쁘게 하기 위해 HTML을 사용하지 않고 이미지로만 만든다면 어떻게 될까? 시각 장애가 있는 사람들에게는 암흑과도 같은 상태가 될 것이다.</li>
+</ul>
+
+</BODY>
+
+</HTML>

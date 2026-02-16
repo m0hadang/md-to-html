@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+  <link rel="stylesheet" href="../../css/style.css">
+  <!-- code highlight -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/school-book.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <title>kotlin</title>
+</HEAD>
+
+<BODY>
+<h1 id="post-title">kotlin</h1>
+
+<h1>코틀린 코딩 스타일</h1>
+<ul>
+<li>세미콜론 필요 없음</li>
+<li>클래스 이름 : 파스칼 표기법(ClassName)</li>
+<li>함수, 변수 이름 : 카멜 표기법(functionName)</li>
+</ul>
+<h1>var, val</h1>
+<ul>
+<li>var : 수정 가능한 변수.</li>
+<li>val : 선언시에만 초기화 가능. 중간에 값을 변경할 수 없음.</li>
+<li>코틀린은 변수가 초기화 되어있지 않을 경우 컴파일 에러 발생.</li>
+</ul>
+<h1>nullable</h1>
+<ul>
+<li>? 이용하여 nullable 변수 선언 가능.</li>
+</ul>
+<h1>프리미티브 타입</h1>
+<pre><code class="language-kotlin">fun main() {
+    var intValue:Int = 1234
+    var longValue:Long = 1234L
+    var intValueByHex:Int = 0x1af
+    var intValueByBin:Int = 0b10110110
+    
+    var doubleValue:Double = 123.5
+    var doubleValueWithExp:Double = 123.5e10
+    var floatValue:Float = 123.5f
+}
+</code></pre>
+<ul>
+<li>코틀린은 8진수 표기 지원하지 않음.</li>
+<li>프리미티브 타입은 클래스로 구현되어 있음.</li>
+</ul>
+<h1>코틀린의 문자 유니코드</h1>
+<ul>
+<li>UTF-16BE.</li>
+<li>문자 하나 표현시 2byte 사용.</li>
+</ul>
+<h1>파라미터</h1>
+<p>코틀린도 다른 언어들 처럼 기본 인자, named 인자, 가변 인자 지원</p>
+<pre><code class="language-kotlin">pay(amount = 200)
+</code></pre>
+<pre><code class="language-kotlin">fun printlnAll(vararg numbers: Int) {
+    for (n in numbers) {
+        println(n)
+    }
+}
+
+fun main() {
+    printlnAll(1, 2, 3, 4, 5)
+}
+</code></pre>
+<h1>함수 기본 반환 타입(Unit)</h1>
+<p>함수 반환 타입이 지정되지 않을 경우 Unit 를 반환한다.</p>
+<pre><code class="language-kotlin">fun a(str: String) { 
+  println(&quot;function \(str&quot;)  
+  //return 0    &lt;-- 없는 것 같지만 기본적으로 0 반환
+}
+</code></pre>
+<h1>단일 표현식</h1>
+<p>단일 표현식 사용하면 리턴 생략 가능.</p>
+<pre><code class="language-kotlin">fun add(a: Int, b: Int) = a + b
+</code></pre>
+<p><strong>함수형 언어인 코틀린에서 함수는 자료형이 결정된 변수라는 개념으로 접근하는 것이 좋다</strong></p>
+<h1>Any, when</h1>
+<p>어떤 자료형과도 호환되는 자료형 타입. 코틀린의 최상위 자료형.</p>
+<ul>
+<li>C# 의 object 와 같은 개념</li>
+</ul>
+<pre><code class="language-kotlin">fun main() {
+    doWhen(1)
+    doWhen(&quot;Dimo&quot;)
+}
+fun doWhen(a: Any) {
+    when (a) {
+        1 -&gt; println(&quot;정수 1입니다&quot;)
+        &quot;Dimo&quot; -&gt; println(&quot;Dimo입니다&quot;)
+        is Long -&gt; println(&quot;Long 타입입니다&quot;)
+        !is String -&gt; println(&quot;String 타입이 아닙니다&quot;)
+        else -&gt; println(&quot;어떤 조건도 만족하지 않습니다&quot;)
+    }   
+}
+</code></pre>
+<pre><code class="language-kotlin">var res = when (a) {
+    1 -&gt; &quot;정수 1입니다&quot;
+    &quot;Dimo&quot; -&gt; &quot;Dimo입니다&quot;
+    is Long -&gt; &quot;Long 타입입니다&quot;
+    !is String -&gt; &quot;String 타입이 아닙니다&quot;
+    else -&gt; &quot;어떤 조건도 만족하지 않습니다&quot;
+}
+println(res)
+</code></pre>
+<h1>레이블 break, continue</h1>
+<pre><code class="language-kotlin">loop@ for (i in 1..10) {
+    for (j in 1..10) {
+        if (i == 1 &amp;&amp; j == 2) break@loop
+        println(&quot;i: \)i, j: \(j&quot;)
+    }
+}
+</code></pre>
+<h1>기본 생성자</h1>
+<p>멤버 변수 초기화.</p>
+<pre><code class="language-kotlin">class Person(name: String, age: Int) {
+    val name: String
+    val age: Int
+    init {
+        this.name = name
+        this.age = age
+        println(&quot;name: \){this.name}, age: \({this.age}&quot;)
+    }
+}
+fun main() {
+    val p = Person(&quot;Nick&quot;, 10)
+}
+</code></pre>
+<h1>보조 생성자</h1>
+<p>기본 생성자를 호출하여 변수를 초기화 필요.</p>
+<pre><code class="language-kotlin">class Person(val name: String, val age: Int) {
+    constructor(name: String) : this(name, 10) {
+        println(&quot;name: \)name&quot;)
+    }
+}
+
+fun main() {
+    val p = Person(&quot;Nick&quot;)     
+}
+</code></pre>
+<h1>클래스 상속</h1>
+<ul>
+<li>클래스는 기본적으로 final(상속 불가) 이다.</li>
+<li>클래스 상속/멤버 함수 재정의(override) 위해서 개방(open) 필요.</li>
+<li>서브 클래스는 베이스 클래스의 생성자를 호출해야 한다.</li>
+</ul>
+<pre><code class="language-kotlin">open class Person(val name: String, val age: Int) {
+    open fun print() {
+        println(&quot;name: \(name, age: \)age&quot;)
+    }
+}
+class Student(name: String, age: Int, val id: Int) : Person(name, age) {
+    fun printId() {
+        println(&quot;id: \(id&quot;)
+    }
+    override fun print() {
+        println(&quot;name: \)name, age: \(age, id: \)id&quot;)
+    }
+}
+
+fun main() {
+    val p = Student(&quot;Nick&quot;, 10, 123)
+    p.print()
+}
+</code></pre>
+<h1>추상 클래스</h1>
+<p>추상 클래스는 추상 함수를 가지고 있는 클래스. 추상 클래스는 생성자를 가질 수 없다.</p>
+<pre><code class="language-kotlin">abstract class Person(val name: String, val age: Int) {
+    abstract fun print()
+}
+
+class Student(name: String, age: Int, private val id: Int) : Person(name, age) {
+    override fun print() {
+        println(&quot;name: \({name}, age: \){age}, id: \(id&quot;)
+    }
+}
+</code></pre>
+<h1>인터페이스</h1>
+<p>추상 클래스와 같지만 단 하나가 다르다. 인터페이스는 생성자를 가질 수 없다.</p>
+<p>인터페이스 함수 처리</p>
+<ul>
+<li>구현부가 있는 함수 : open 함수로 간주.</li>
+<li>구현부가 없는 함수 : abstract 함수로 간주.</li>
+<li>인터페이스는 별도의 open, abstract 키워드가 없어도 모든 함수를 재정의 가능.</li>
+</ul>
+<p>한번에 여러 인터페이스 상속 가능.</p>
+<pre><code class="language-kotlin">interface Runner {
+    fun run()
+}
+interface Eater {
+    fun eat() { println(&quot;eat food&quot;) }
+}
+class Person(val name: String, val age: Int) : Runner, Eater {
+    override fun run() { println(&quot;run!!&quot;) }
+    override fun eat() { println(&quot;eat many!!&quot;) }
+}
+
+fun main() {
+    val s = Person(&quot;nick&quot;, 10)
+    s.run()
+    s.eat()
+}
+</code></pre>
+<h1>프로젝트</h1>
+<p>프로젝트</p>
+<ul>
+<li>개발에 필요한 파일들의 물리적인 단위.</li>
+<li>프로젝트는 모듈로 구성되어 있다.</li>
+<li>모듈은 여러 소스 파일, 설정 파일, 리소스, 디렉터리 ... 등으로 이루어져 있다.</li>
+</ul>
+<h1>패키지</h1>
+<p>소스 코드의 '소속'을 지정하기 위한 논리적인 단위.</p>
+<p>일반적인 패키지 작명</p>
+<ol>
+<li>서비스 도메인을 거꾸로(youtube.com -&gt; com.youtube)</li>
+<li>뒤에 프로젝트 명 추가(com.youtube.dimo)</li>
+<li>기능별로 세분화</li>
+</ol>
+<ul>
+<li>com.youtube.dimo.base</li>
+<li>com.youtube.dimo.android</li>
+<li>com.youtube.dimo.talk</li>
+<li>...</li>
+</ul>
+<p>package, import</p>
+<pre><code class="language-kotlin">package com.example
+
+import org.springframework.boot.autoconfigure.SpringBootApplication
+</code></pre>
+<ul>
+<li>코틀린은 자바와 달리 폴더 구조를 패키지 명과 일치 시키지 않아도 된다.</li>
+<li>코틀린은 파일명과 클래스 이름이 일치하지 않아도 되며 한 파일에 여러개의 클래스 생성 가능.
+<ul>
+<li>코틀린은 파일이 아닌 패키지 명으로 구조를 나눈다.</li>
+</ul>
+</li>
+<li>패키지를 지정하지 않으면 'default' 패키지에 포함된다.</li>
+</ul>
+<h1>스코프</h1>
+<p>코틀린에서는 함수 뿐만 아니라 클래스, 패키지도 스코프의 일종으로 취급한다.</p>
+<h1>접근 제한자</h1>
+<p>패키지 스코프</p>
+<ul>
+<li>public(기본) : 어떤 패키지에서도 접근 가능.</li>
+<li>internal : 같은 모듈 내에서만 접근 가능.</li>
+<li>private : 같은 파일 내에서만 접근 가능.</li>
+</ul>
+<p>클래스 스코프</p>
+<ul>
+<li>public(기본) : 클래스 외부에서 접근 가능.</li>
+<li>private : 클래스 내부에서만 접근 가능.</li>
+<li>protected : 클래스 자신과 상속받은 클래스에서 접근 가능.</li>
+</ul>
+<h1>변수 사용시 주의</h1>
+<p>val 는 할당된 객체를 바꿀 수 없을 뿐이지 객체 내부 속성을 바꾸지 못하는 것은 아니다</p>
+
+</BODY>
+
+</HTML>

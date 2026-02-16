@@ -1,0 +1,3 @@
+- [kmp](kmp.html)
+- [matrix](matrix.html)
+- [polynomial](polynomial.html)

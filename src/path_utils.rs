@@ -66,7 +66,7 @@ pub(crate) fn listing_filename_for_dir(cur_path: &Path, output_post_dir: &str) -
         .file_name()
         .and_then(|n| n.to_str())
         .map(|n| format!("{}.md", n))
-        .unwrap_or_else(|| output_post_dir.to_string())
+        .unwrap_or_else(|| format!("{}.md", output_post_dir))
 }
 
 pub(crate) fn resolve_html_output_path(md_path: &Path, output_base: &str) -> PathBuf {
@@ -106,6 +106,46 @@ pub(crate) fn get_md_files(dir: &str) -> Vec<String> {
         }
     }
     file_list
+}
+
+/// Copies all non-.md files from source_post_dir to output_post_dir, preserving directory structure.
+/// Use so that images and other assets are available next to the generated HTML.
+pub(crate) fn copy_assets(source_post_dir: &str, output_post_dir: &str) {
+    let source = Path::new(source_post_dir);
+    let output = Path::new(output_post_dir);
+    copy_assets_recursive(source, source, output);
+}
+
+fn copy_assets_recursive(source_root: &Path, current: &Path, output_root: &Path) {
+    let entries = match std::fs::read_dir(current) {
+        Ok(e) => e,
+        Err(_) => return,
+    };
+    for entry in entries {
+        let path = match entry {
+            Ok(e) => e.path(),
+            Err(_) => continue,
+        };
+        if path.is_dir() {
+            copy_assets_recursive(source_root, &path, output_root);
+        } else {
+            let is_md = path.extension().map(|e| e == "md").unwrap_or(false);
+            if is_md {
+                continue;
+            }
+            let relative = match path.strip_prefix(source_root) {
+                Ok(r) => r,
+                Err(_) => continue,
+            };
+            let dest = output_root.join(relative);
+            if let Some(parent) = dest.parent() {
+                let _ = std::fs::create_dir_all(parent);
+            }
+            if std::fs::copy(&path, &dest).is_ok() {
+                println!("{} -> {}", path.display(), dest.display());
+            }
+        }
+    }
 }
 
 #[cfg(test)]
