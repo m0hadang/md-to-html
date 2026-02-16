@@ -67,8 +67,11 @@ pub(crate) fn create_index_md(cur_dir: &str, output_post_dir: &str) {
         content
     };
 
-    let output_path =
-        Path::new(output_post_dir).join(cur_path.strip_prefix("src-post").unwrap_or(cur_path));
+    let output_path = Path::new(output_post_dir).join(
+        cur_path
+            .strip_prefix(crate::config::SOURCE_POST_DIR)
+            .unwrap_or(cur_path),
+    );
     std::fs::create_dir_all(&output_path).expect("Failed to create output directory for index");
 
     let output_dir_name = output_path.file_name().and_then(|n| n.to_str()).unwrap_or("index");

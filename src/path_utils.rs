@@ -1,8 +1,10 @@
 use std::env::current_exe;
 use std::path::{Path, PathBuf};
 
-/// Project root: directory containing index.md and src-post/.
-/// If exe lives in a folder named "md-to-html", use parent only when parent has index.md or src-post.
+use crate::config;
+
+/// Project root: directory containing INDEX_MD and SOURCE_POST_DIR.
+/// If exe lives in a folder named "md-to-html", use parent only when parent has index or source dir.
 pub(crate) fn resolve_project_root() -> PathBuf {
     let exe_dir = current_exe()
         .expect("Failed to get executable path")
@@ -14,7 +16,8 @@ pub(crate) fn resolve_project_root() -> PathBuf {
 
     if is_exe_in_md_to_html {
         let parent = exe_dir.parent().expect("Executable in md-to-html but no parent directory");
-        let has_content = parent.join("index.md").exists() || parent.join("src-post").is_dir();
+        let has_content =
+            parent.join(config::INDEX_MD).exists() || parent.join(config::SOURCE_POST_DIR).is_dir();
         if has_content {
             return parent.to_path_buf();
         }
@@ -24,10 +27,10 @@ pub(crate) fn resolve_project_root() -> PathBuf {
 }
 
 pub(crate) fn ensure_default_index() {
-    const DEFAULT_INDEX_MD: &str = "🚀 *[Go Post](post/post.html)*\n";
-    if !Path::new("index.md").exists() {
-        std::fs::write("index.md", DEFAULT_INDEX_MD).expect("Failed to create default index.md");
-        println!("==> created default index.md");
+    if !Path::new(config::INDEX_MD).exists() {
+        std::fs::write(config::INDEX_MD, config::default_index_content())
+            .expect("Failed to create default index");
+        println!("==> created default {}", config::INDEX_MD);
     }
 }
 
@@ -53,20 +56,24 @@ pub(crate) fn is_listing_file(file_path: &Path, source_post_dir: &str, output_po
         .unwrap_or(false)
 }
 
-/// Listing file name = output directory name (e.g. post.md in src-post, rust.md in src-post/rust).
+/// Listing file name = output directory name (e.g. post.md in source dir, rust.md in source/rust).
 pub(crate) fn listing_filename_for_dir(cur_path: &Path, output_post_dir: &str) -> String {
-    let relative = cur_path.strip_prefix("src-post").unwrap_or(cur_path);
+    let relative = cur_path
+        .strip_prefix(config::SOURCE_POST_DIR)
+        .unwrap_or(cur_path);
     let output_path = Path::new(output_post_dir).join(relative);
     output_path
         .file_name()
         .and_then(|n| n.to_str())
         .map(|n| format!("{}.md", n))
-        .unwrap_or_else(|| "post.md".to_string())
+        .unwrap_or_else(|| output_post_dir.to_string())
 }
 
 pub(crate) fn resolve_html_output_path(md_path: &Path, output_base: &str) -> PathBuf {
-    if md_path.starts_with("src-post") {
-        let relative = md_path.strip_prefix("src-post").unwrap_or(md_path);
+    if md_path.starts_with(config::SOURCE_POST_DIR) {
+        let relative = md_path
+            .strip_prefix(config::SOURCE_POST_DIR)
+            .unwrap_or(md_path);
         return Path::new(output_base).join(relative).with_extension("html");
     }
     let file_name = md_path.file_name().expect("Markdown file path has no filename");
@@ -119,26 +126,29 @@ mod tests {
 
     #[test]
     fn is_listing_file_true_when_name_matches_dir() {
+        let p = format!("{}/post.md", config::SOURCE_POST_DIR);
         assert!(is_listing_file(
-            Path::new("src-post/post.md"),
-            "src-post",
-            "post"
+            Path::new(&p),
+            config::SOURCE_POST_DIR,
+            config::OUTPUT_POST_DIR
         ));
     }
 
     #[test]
     fn is_listing_file_false_when_not_listing() {
+        let p = format!("{}/other.md", config::SOURCE_POST_DIR);
         assert!(!is_listing_file(
-            Path::new("src-post/other.md"),
-            "src-post",
-            "post"
+            Path::new(&p),
+            config::SOURCE_POST_DIR,
+            config::OUTPUT_POST_DIR
         ));
     }
 
     #[test]
     fn resolve_html_output_path_src_post_keeps_structure() {
-        let path = Path::new("src-post/rust/foo.md");
-        let out = resolve_html_output_path(path, "post");
-        assert_eq!(out, Path::new("post/rust/foo.html"));
+        let path_str = format!("{}/rust/foo.md", config::SOURCE_POST_DIR);
+        let out = resolve_html_output_path(Path::new(&path_str), config::OUTPUT_POST_DIR);
+        let expected = format!("{}/rust/foo.html", config::OUTPUT_POST_DIR);
+        assert_eq!(out, Path::new(&expected));
     }
 }
